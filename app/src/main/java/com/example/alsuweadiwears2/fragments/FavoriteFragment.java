@@ -51,7 +51,6 @@ public class FavoriteFragment extends Fragment {
         products.clear();
         if(manager.retrieveProducts().size() > 0){
             for(Product product: manager.retrieveProducts()){
-                 Integer.parseInt(String.valueOf(product.getId())) ;
              for(Product p : baseProducts){
                  if(product.getId() == p.getId()){
                      product.setPhoto(p.getPhoto());

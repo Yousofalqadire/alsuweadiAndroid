@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements ProductLikeListen
   private CardStack cardStack;
   private ProductAdapter adapter;
   private ProductManager productManager;
+  private List<Product> favorite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements ProductLikeListen
         }
         cardStack.setAdapter(adapter);
         productManager = new ProductManager(this);
+        favorite = new ArrayList<>();
+        favorite = productManager.retrieveProducts();
+        Log.i("likes", favorite + "");
 
     }
 
