@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import com.example.alsuweadiwears2.controllers.FavoriteItemsAdapter;
 import com.example.alsuweadiwears2.models.Product;
 import com.example.alsuweadiwears2.models.ProductManager;
 import com.example.alsuweadiwears2.models.ProductUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class FavoriteFragment extends Fragment {
   ProductManager manager;
   RecyclerView recyclerView;
   ProductUtils utils;
+  private Product deletedProduct;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -110,7 +113,42 @@ public class FavoriteFragment extends Fragment {
             adapter = new FavoriteItemsAdapter(getContext(),products);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
         }
         return view;
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+            switch (direction){
+                case ItemTouchHelper.LEFT:
+                case ItemTouchHelper.RIGHT:
+                    deletedProduct = products.get(position);
+                    manager.deleteProduct(deletedProduct);
+                    products.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyDataSetChanged();
+                    Snackbar.make(recyclerView,"product has been deleted",Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                   products.add(position,deletedProduct);
+                                   manager.SaveProduct(deletedProduct);
+                                   adapter.notifyItemInserted(position);
+                                }
+                            }).show();
+                    break;
+
+            }
+
+        }
+    };
 }
