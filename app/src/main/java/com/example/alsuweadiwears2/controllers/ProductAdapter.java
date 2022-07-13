@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.alsuweadiwears2.R;
 import com.example.alsuweadiwears2.models.Product;
 
@@ -61,6 +63,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 if(clicked){
                     likeBtn.setImageResource(R.drawable.ic_baseline_thumb_up_24);
                     clicked = false;
+                    YoYo.with(Techniques.Tada)
+                            .duration(700)
+                            .playOn(likeBtn);
                     product = new Product(getItem(position).getId(),true);
                 }else{
                     likeBtn.setImageResource(R.drawable.ic_like_impty);
