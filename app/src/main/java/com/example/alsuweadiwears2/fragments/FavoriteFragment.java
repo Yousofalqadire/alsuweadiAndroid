@@ -54,8 +54,6 @@ public class FavoriteFragment extends Fragment {
             AsyncJob.doInBackground(new AsyncJob.OnBackgroundJob() {
                 @Override
                 public void doOnBackground() {
-
-
                     try {
                         for(Product product: manager.retrieveProducts()){
                             for(Product p : baseProducts){

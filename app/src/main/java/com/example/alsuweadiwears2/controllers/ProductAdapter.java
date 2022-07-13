@@ -54,13 +54,12 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                     likeBtn.setImageResource(R.drawable.ic_baseline_thumb_up_24);
                     clicked = false;
                     product = new Product(getItem(position).getId(),true);
-                    productLikeListener.productIsLiked(product);
                 }else{
                     likeBtn.setImageResource(R.drawable.ic_like_impty);
                     clicked = true;
                     product = new Product(getItem(position).getId(),false);
-                    productLikeListener.productIsLiked(product);
                 }
+                productLikeListener.productIsLiked(product);
             }
         });
 
