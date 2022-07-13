@@ -2,7 +2,9 @@ package com.example.alsuweadiwears2.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +27,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
    private boolean clicked = true;
    private ProductLikeListener productLikeListener;
    private Product product;
+   private SharedPreferences sharedPreferences;
 
     public ProductAdapter(@NonNull Context context, int resource) {
 
         super(context, resource);
         productLikeListener = (ProductLikeListener) context;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
     @Override
     public View getView(int position,  View contentView, ViewGroup parent){
@@ -47,6 +51,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 .load(getItem(position).getPhoto().getUrl())
                 .into(productImage);
         productImage.setImageURI(Uri.parse(getItem(position).getPhoto().getUrl()));
+        if(sharedPreferences.contains(String.valueOf(getItem(position)))){
+            likeBtn.setImageResource(R.drawable.ic_baseline_thumb_up_24);
+            clicked = false;
+        }
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
