@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/drawable/background_1.xml" value="0.2165" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/activity_favorite.xml" value="0.209375" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/favorite_item.xml" value="0.1" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/fragment_favorite.xml" value="0.209375" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/product_item.xml" value="0.209375" />
+        <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/layout/splash_activity.xml" value="0.209375" />
         <entry key="..\:/Users/Discovery PC/AndroidStudioProjects/alsuweadiwears2/app/src/main/res/menu/main_menu.xml" value="0.209375" />
       </map>
     </option>

@@ -1,6 +1,7 @@
 package com.example.alsuweadiwears2.controllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,15 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "share is pressed", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(parent.getContext(), "share is pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                String shareableContent  = productName.getText().toString();
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"product name");
+                intent.putExtra(Intent.EXTRA_TEXT,shareableContent);
+                v.getContext().startActivity(Intent.createChooser(intent,"share via"));
+
 
             }
         });

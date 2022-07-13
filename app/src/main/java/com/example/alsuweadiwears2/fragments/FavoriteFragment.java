@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arasthel.asyncjob.AsyncJob;
 import com.example.alsuweadiwears2.R;
 import com.example.alsuweadiwears2.controllers.FavoriteItemsAdapter;
 import com.example.alsuweadiwears2.models.Product;
@@ -50,23 +51,46 @@ public class FavoriteFragment extends Fragment {
         manager = new ProductManager(context);
         products.clear();
         if(manager.retrieveProducts().size() > 0){
-            for(Product product: manager.retrieveProducts()){
-             for(Product p : baseProducts){
-                 if(product.getId() == p.getId()){
-                     product.setPhoto(p.getPhoto());
-                     product.setBrand(p.getBrand());
-                     product.setCategory(p.getCategory());
-                     product.setDetails(p.getDetails());
-                     product.setLiked(true);
-                     product.setSizes(p.getSizes());
-                 }
-                 products.add(product);
+            AsyncJob.doInBackground(new AsyncJob.OnBackgroundJob() {
+                @Override
+                public void doOnBackground() {
 
 
+                    try {
+                        for(Product product: manager.retrieveProducts()){
+                            for(Product p : baseProducts){
+                                if(product.getId() == p.getId()){
+                                    product.setPhoto(p.getPhoto());
+                                    product.setBrand(p.getBrand());
+                                    product.setCategory(p.getCategory());
+                                    product.setDetails(p.getDetails());
+                                    product.setLiked(true);
+                                    product.setSizes(p.getSizes());
+                                }
 
-             }
+                            }
+                            products.add(product);
 
-            }
+                        }
+
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Create a fake result (MUST be final)
+                    final boolean result = true;
+
+
+                    AsyncJob.doOnMainThread(new AsyncJob.OnMainThreadJob() {
+                        @Override
+                        public void doInUIThread() {
+
+                        }
+                    });
+                }
+            });
+
         }
     }
 
